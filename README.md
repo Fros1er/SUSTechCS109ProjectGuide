@@ -40,6 +40,17 @@ tags:
 
 所以你如果什么东西没写好，演示的时候避开是完全可以的（不排除老师挑一个地方指挥你演示，但总体没这么多时间）。
 
+## 给自己打广告
+如果你想基本不写UI几百行速通这个project.....
+
+看看我的框架。用了就基本满分。
+
+<https://github.com/Fros1er/2DBoardGameFrame/>
+
+用框架是有风险的，并且也需要一定的学习和理解。做选择的时候考虑清楚。
+
+当然，欢迎借鉴()
+
 ## 提问的智慧
 <https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way>
 
@@ -256,7 +267,9 @@ ab剪枝没那么好做，它是大三人工智能课上三个project之一。�
 ## 用户平台
 我看project解读里写着多个frame...........it works，但真的不要这么干。
 
-**CardLayout切换页面，JDialog弹窗。** 没了。swing的表格有一点点难用。如果不会用的话可以循环添加JLabel，然后用GridLayout布局（指分隔和换行）。
+**CardLayout切换页面，JDialog弹窗。** 没了。上学期用JDialog是个bonus。
+
+swing的表格有一点点难用。如果不会用的话可以循环添加JLabel，然后用GridLayout布局（指分隔和换行）。
 
 ## 主题切换
 可以弄个`Theme`类，里面存些图片，字体啥的。然后找个地方存个`public static Themes[] themes;`，还有`public static Theme currentTheme；`。在所有设定背景图片，设定字体的时候都用`currentTheme.picForSomewhere`来拿到对应的东西。
@@ -297,6 +310,10 @@ panel.setOpaque(true); //让java把panel的背景色显示出来
 用swing做棋子运行动画就别想了。你的时间宝贵。（大佬请无视这句话，%%%%%%）
 
 计时器，抄AI那里的代码，每秒改一下JPanel显示的数字就行。
+
+## 其他（重要）
+
+在上学期...读取存储游戏的GUI，JFileChooser选存档，用户属性（登录等），棋盘大小适应窗体缩放（用我的库谢谢喵），改棋盘图片，背景图片，鼠标划过格子或棋子有颜色变化（mouseEntered， mouseExited），计时器，这些都是有规定的bonus分的。人机不同算法拿到的bonus分也是不一样的。建议酌情去做一下。
 
 # 五个神奇的class
 
