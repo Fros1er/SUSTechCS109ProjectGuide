@@ -329,14 +329,16 @@ panel.setOpaque(true); //让java把panel的背景色显示出来
 
 ## AudioPlayer
 只支持wav格式的音频播放器。有三个静态方法：  
-`public static Future<?> playBgm(String path)`  
+`public static AudioPlayer playBgm(String path)`  
 持续播放path（文件路径）指定的音频。播放完后会重播。
 
-`public static Future<?> playSound(String path)`  
+`public static AudioPlayer playSound(String path)`  
 播放path指定的音频。播放完后不会重播。
 
-`public static void stop(Future<?> handle)`  
-停止播放。上面两个方法会返回一个类型为`Future<?>`的变量。把它传给stop即可停止对应的音频播放。
+`public static void stop()`  
+停止播放。上面两个方法会返回一个类型为`AudioPlayer`的变量。调用它的stop方法即可停止对应的音频播放。
+
+不推荐手动调用`AudioPlayer.play()`。它会阻塞当前线程，然后把你的程序卡住。
 
 ## GridPanel
 一个布局管理器为`GridLayout`的`JPanel`，特点是里面的格子在改变大小时永远是方形。构造时需要传入宽和高各有几个格子。
