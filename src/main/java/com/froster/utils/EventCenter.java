@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 public class EventCenter {
     private static final Map<String, List<Consumer<Event>>> eventMap = new HashMap<>();
-    public static <T extends Event> void publish(String type, T event) {
+    public static void publish(String type, Event event) {
         if (!eventMap.containsKey(type)) return;
         eventMap.get(type).forEach(e -> e.accept(event));
     }

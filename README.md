@@ -422,11 +422,15 @@ panel.setOpaque(true); //让java把panel的背景色显示出来
 ### Socket编程
 原理不展开了，好奇的话去看<https://www.bilibili.com/video/BV1EW411u7th/?p=29>和后面的两p。
 
-要让两个（或者多个）程序通过网络通信，需要有一个程序作为服务器接收连接，其他的程序对应的就是客户端发起连接。客户端通过ip和端口定位服务器。端口是自己设置的，不和已有端口冲突就ok。ip的话，只要所有电脑都连着校园网，通过ipconfig命令就可以拿到ip。命令怎么用自己查。
+要让两个（或者多个）程序通过网络通信，需要有一个程序作为服务器接收连接，其他的程序对应的就是客户端发起连接。客户端通过ip和端口定位服务器。
 
-接下来就是代码环节：<https://www.cnblogs.com/yiwangzhibujian/p/7107785.html>。只看这篇的前两章你就能来回收发文本了。收到文本的时候解析一下，然后按需调用。
+调我的库就行，具体看最下面。
 
-收发是阻塞的，记得放到线程里，和AI那块一样。
+~~端口是自己设置的，不和已有端口冲突就ok。ip的话，只要所有电脑都连着校园网，通过ipconfig命令就可以拿到ip。命令怎么用自己查。~~
+
+~~接下来就是代码环节：<https://www.cnblogs.com/yiwangzhibujian/p/7107785.html>。只看这篇的前两章你就能来回收发文本了。收到文本的时候解析一下，然后按需调用。~~
+
+~~收发是阻塞的，记得放到线程里，和AI那块一样。~~
 
 ### 消息传递
 每次通信发的消息...看情况吧。加入游戏的时候服务器给客户端发颜色，玩的时候服务端和客户端交换点击坐标和游戏结果什么的。能发文本的话（也可以用别的inputstream/outputstream，甚至可以序列化对象），有传什么的需求都能满足。
@@ -457,11 +461,11 @@ panel.setOpaque(true); //让java把panel的背景色显示出来
 
 在上上学期，读取存储游戏的GUI，JFileChooser选存档，用户属性（登录等），棋盘大小适应窗体缩放（用我的库谢谢喵），改棋盘图片，背景图片，鼠标划过格子或棋子有颜色变化（mouseEntered， mouseExited），计时器，这些都是有规定的bonus分的。人机不同算法拿到的bonus分也是不一样的。建议酌情去做一下。
 
-# 五个神奇的class
+# 六个神奇的class
 
 **现在用库会扣分了。所以我把这几个类用的license改成了wtfpl，你们想复制随便复制，完全不需要署名！**
 
-**记得稍微改改逻辑和变量名，否则被发现了别来怪我。**
+**记得稍微改改变量名，否则被发现了别来怪我。**
 
 你们从别的地方抄的大部分也都长得差不多而且九成没我这个好，所以大胆一点()
 
@@ -502,3 +506,17 @@ panel.setOpaque(true); //让java把panel的背景色显示出来
 见上面的事件系统。
 
 Event要单独说一下。lambda表达式里的参数e是`Event`。这个Event类是用于在事件发生时给回调函数传递信息用的，如果需要传递信息，你需要手动继承Event，在publish的时候传入你继承的类的实例，然后在lambda表达式里手动做一个强制类型转换，把它转成你实际传进去的那个类。
+
+## SocketServer和SocketClient
+
+实现一对一的联网功能。使用时，一个程序new一个SocketServer，另一个new一个SocketClient。在SocketServer执行start方法后，SocketClient执行connect方法连接。
+
+Server和Client都可以注册三个Listener（实现在SocketBase里，不需要改）
+- addConnectListener：连接成功建立时，这个Listener被触发。如果你不理解Socket，忽视掉Listener的参数，用不上
+- addMessageListener：收到一行字符串时，这个Listener被触发。你的程序应该自行定义这行字符串代表怎样的一条指令或者消息（比如点击某个格子是c:1,1）
+- addErrorListener：各种报错时触发。这个Listener被触发时连接会断开 ，你应该终止/暂停游戏并重新执行start和connect方法来重新连接。
+
+此外，还有一个sendLine方法，用于发送一行字符串。返回值为true代表这行字符串成功发送。
+
+在SocketServer里有一个静态方法getIp，用于拿到本机的ip地址。拿到以后可以显示在什么地方，然后在client一方手动打进去。
+
